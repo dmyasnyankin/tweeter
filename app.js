@@ -5,11 +5,17 @@ const mongoose = require('mongoose');
 const users = require("./routes/api/users");
 const bodyParser = require('body-parser');
 const tweets = require("./routes/api/tweets");
+const passport = require('passport');
+
 
 mongoose
     .connect(db, { useNewUrlParser: true })
     .then(() => console.log("Connected to MongoDB successfully"))
     .catch(err => console.log(err));
+
+app.use(passport.initialize());
+require('./config/passport')(passport);
+
 
 app.get("/", (req, res) => res.send("Hello World"));
 
